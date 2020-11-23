@@ -3,9 +3,9 @@ package iot.polytech.bandukeserver.entity.request;
 import lombok.Data;
 
 @Data
-public class SignUpUserRequest {
+public class SignUpUser {
 
-    private String email;
+    private String username;
     private String password;
     private String firstname;
     private String lastname;
