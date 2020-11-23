@@ -1,6 +1,6 @@
 package iot.polytech.bandukeserver.controller;
 
-import iot.polytech.bandukeserver.entity.User;
+import iot.polytech.bandukeserver.entity.request.UserProfil;
 import iot.polytech.bandukeserver.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +14,14 @@ public class UserController {
 
     private UserService us;
 
-    @GetMapping("/list")
-    public List<User> getUsers(){
-        return us.getUsers();
+    @GetMapping("/{id}")
+    public UserProfil getUserProfil(@PathVariable int id){
+        return us.getUserProfil(id);
     }
 
+    @GetMapping("/list")
+    public List<UserProfil> getUserProfil(@RequestParam(defaultValue = "") String name){
+        return us.getUsersProfil(name);
+    }
 }
 

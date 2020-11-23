@@ -23,11 +23,11 @@ public class User {
     private String password;
 
     @Basic
-    @Column(name = "name", nullable = false, length = 30)
-    private String name;
+    @Column(name = "firstname", nullable = false, length = 30)
+    private String firstname;
 
     @Basic
-    @Column(name = "surname", nullable = false, length = 30)
-    private String surname;
+    @Column(name = "lastname", nullable = false, length = 30)
+    private String lastname;
 
 }
