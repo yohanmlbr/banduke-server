@@ -57,4 +57,34 @@ public class UserService {
         up.setLastname(u.getLastname());
         return up;
     }
+
+    public UserProfil updateUserProfile(long id, UserProfil newProfile) {
+        User u = userRepository.findById(id).orElseThrow(
+                () -> new RessourceException("User", "id", id)
+        );
+        u.setFirstname(newProfile.getFirstname());
+        u.setLastname(newProfile.getLastname());
+        userRepository.save(u);
+        return  uToUp(u);
+    }
+
+    public UserProfil deactivateUserProfile(long id) {
+        //TODO
+        return null;
+    }
+
+    public List<UserProfil> getUserFriendsList(long id) {
+        //TODO
+        return null;
+    }
+
+    public UserProfil addFriend(long id) {
+        //TODO
+        return null;
+    }
+
+    public UserProfil deleteFriend(long id) {
+        //TODO
+        return null;
+    }
 }
