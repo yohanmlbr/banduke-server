@@ -19,9 +19,35 @@ public class UserController {
         return us.getUserProfile(id);
     }
 
-    @GetMapping("/list")
-    public List<UserProfile> getUserProfil(@RequestParam(defaultValue = "") String name){
-        return us.getUsersProfile(name);
+    @PostMapping("/{id}")
+    public UserProfile updateUserProfile(@PathVariable long id,
+                                       @RequestBody UserProfile newProfile){
+        return us.updateUserProfile(id, newProfile);
     }
+
+    @DeleteMapping("/{id}")
+    public UserProfile deactivateUserProfile(@PathVariable long id){
+        return us.deactivateUserProfile(id);
+    }
+
+
+    @GetMapping("/list")
+    public List<UserProfile> getUsersProfile(@RequestParam(defaultValue = "") String username){
+        return us.getUsersProfile(username);
+    }
+
+    @GetMapping("/friends/{id}")
+    public List<UserProfile> getUserFriendsList(@PathVariable long id) {
+        return us.getUserFriendsList(id); }
+
+    @PostMapping("/friend/{id}")
+    public UserProfile addFriend(@PathVariable long id) {
+        return us.addFriend(id); }
+
+    @DeleteMapping("/friend/{id}")
+    public UserProfile deleteFriend(@PathVariable long id) {
+        return us.deleteFriend(id); }
+
+
 }
 
