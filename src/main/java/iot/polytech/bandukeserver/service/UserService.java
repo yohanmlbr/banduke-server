@@ -1,8 +1,8 @@
 package iot.polytech.bandukeserver.service;
 
 import iot.polytech.bandukeserver.entity.User;
-import iot.polytech.bandukeserver.entity.request.SignUpUserRequest;
-import iot.polytech.bandukeserver.entity.request.UserProfil;
+import iot.polytech.bandukeserver.entity.request.SignUpUser;
+import iot.polytech.bandukeserver.entity.request.UserProfile;
 import iot.polytech.bandukeserver.exception.RessourceException;
 import iot.polytech.bandukeserver.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,40 +18,40 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserProfil getUserProfil(long id){
+    public UserProfile getUserProfile(long id){
         User u = userRepository.findById(id).orElseThrow(
                 () -> new RessourceException("User", "id", id)
         );
         return  uToUp(u);
     }
 
-    public List<UserProfil> getUsersProfil(String name){
-        List<UserProfil> upl = new ArrayList<>();
-        for(User u : userRepository.findAll()){
-            if(name.equals("")){
+    public List<UserProfile> getUsersProfile(String name){
+        List<UserProfile> upl = new ArrayList<>();
+        if(name.equals("")){
+            for(User u : userRepository.findAll()) {
                 upl.add(uToUp(u));
             }
-            else if(u.getUsername().contains(name)){
+        }
+        else{
+            for(User u : userRepository.findByUsernameContains(name)) {
                 upl.add(uToUp(u));
             }
         }
         return upl;
     }
 
-
-
-    public void signUpUser(SignUpUserRequest request){
+    public User signUpUser(SignUpUser request){
         User user = new User();
-        user.setUsername(request.getEmail());
+        user.setUsername(request.getUsername());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-    private UserProfil uToUp(User u){
-        UserProfil up = new UserProfil();
+    private UserProfile uToUp(User u){
+        UserProfile up = new UserProfile();
         up.setUsername(u.getUsername());
         up.setFirstname(u.getFirstname());
         up.setLastname(u.getLastname());
