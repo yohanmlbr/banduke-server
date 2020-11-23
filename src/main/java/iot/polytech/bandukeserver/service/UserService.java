@@ -28,12 +28,14 @@ public class UserService {
     public List<UserProfile> getUsersProfile(String name){
         List<UserProfile> upl = new ArrayList<>();
         if(name.equals("")){
-            for(User u : userRepository.findAll()) {
+            List<User> users = userRepository.findAll();
+            for(User u : users) {
                 upl.add(uToUp(u));
             }
         }
         else{
-            for(User u : userRepository.findByUsernameContains(name)) {
+            List<User> users = userRepository.findByUsernameContains(name);
+            for(User u : users) {
                 upl.add(uToUp(u));
             }
         }
@@ -52,6 +54,7 @@ public class UserService {
 
     private UserProfile uToUp(User u){
         UserProfile up = new UserProfile();
+        up.setId(u.getId());
         up.setUsername(u.getUsername());
         up.setFirstname(u.getFirstname());
         up.setLastname(u.getLastname());
