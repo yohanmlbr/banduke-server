@@ -40,14 +40,14 @@ public class UserService {
         return upl;
     }
 
-    public void signUpUser(SignUpUser request){
+    public User signUpUser(SignUpUser request){
         User user = new User();
         user.setUsername(request.getUsername());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     private UserProfile uToUp(User u){
