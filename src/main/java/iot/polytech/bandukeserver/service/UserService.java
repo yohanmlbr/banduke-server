@@ -58,7 +58,7 @@ public class UserService {
         return up;
     }
 
-    public UserProfil updateUserProfile(long id, UserProfil newProfile) {
+    public UserProfile updateUserProfile(long id, UserProfile newProfile) {
         User u = userRepository.findById(id).orElseThrow(
                 () -> new RessourceException("User", "id", id)
         );
@@ -68,22 +68,22 @@ public class UserService {
         return  uToUp(u);
     }
 
-    public UserProfil deactivateUserProfile(long id) {
+    public UserProfile deactivateUserProfile(long id) {
         //TODO
         return null;
     }
 
-    public List<UserProfil> getUserFriendsList(long id) {
+    public List<UserProfile> getUserFriendsList(long id) {
         //TODO
         return null;
     }
 
-    public UserProfil addFriend(long id) {
+    public UserProfile addFriend(long id) {
         //TODO
         return null;
     }
 
-    public UserProfil deleteFriend(long id) {
+    public UserProfile deleteFriend(long id) {
         //TODO
         return null;
     }

@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping("/{id}")
     public UserProfile updateUserProfile(@PathVariable long id,
-                                       @RequestBody UserProfil newProfile){
+                                       @RequestBody UserProfile newProfile){
         return us.updateUserProfile(id, newProfile);
     }
 
@@ -37,15 +37,15 @@ public class UserController {
     }
 
     @GetMapping("/friends/{id}")
-    public List<UserProfil> getUserFriendsList(@PathVariable long id) {
+    public List<UserProfile> getUserFriendsList(@PathVariable long id) {
         return us.getUserFriendsList(id); }
 
     @PostMapping("/friend/{id}")
-    public UserProfil addFriend(@PathVariable long id) {
+    public UserProfile addFriend(@PathVariable long id) {
         return us.addFriend(id); }
 
     @DeleteMapping("/friend/{id}")
-    public UserProfil deleteFriend(@PathVariable long id) {
+    public UserProfile deleteFriend(@PathVariable long id) {
         return us.deleteFriend(id); }
 
 
