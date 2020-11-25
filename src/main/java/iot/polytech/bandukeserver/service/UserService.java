@@ -74,9 +74,11 @@ public class UserService {
     }
 
     public UserProfile deactivateUserProfile(String token) {
-        String userString=JwtTokenUtil.;
-        user.setActivated(false);
-        return uToUp(userRepository.save(user));
+        JwtTokenUtil tu=new JwtTokenUtil();
+        String userString=tu.getUsernameFromToken(token);
+        User u=userRepository.findByUsername(userString);
+        u.setActivated(false);
+        return uToUp(userRepository.save(u));
     }
 
     public List<UserProfile> getUserFriendsList() {

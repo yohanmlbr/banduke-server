@@ -19,8 +19,8 @@ public class JwtTokenUtil implements Serializable {
 
   //  private static final long serialVersionUID = -2550185165626007488L;
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
-    @Value(value = "${jwt.secret}")
-    private String secret;
+    //@Value(value = "")
+    private String secret=System.getenv("jwt.secret");
    // static Key secret = MacProvider.generateKey();
 
     //On retrouve le nom de l'utilisateur avec le Token
