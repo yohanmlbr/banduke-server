@@ -9,4 +9,5 @@ public class UserProfile {
     private String username;
     private String firstname;
     private String lastname;
+    private boolean activated;
 }

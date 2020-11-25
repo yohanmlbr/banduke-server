@@ -30,4 +30,8 @@ public class User {
     @Column(name = "lastname", nullable = false, length = 30)
     private String lastname;
 
+    @Basic
+    @Column(name = "activated", nullable = false)
+    private boolean activated=true;
+
 }

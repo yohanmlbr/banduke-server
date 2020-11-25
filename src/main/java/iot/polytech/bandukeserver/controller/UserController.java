@@ -1,10 +1,13 @@
 package iot.polytech.bandukeserver.controller;
 
+import iot.polytech.bandukeserver.entity.User;
 import iot.polytech.bandukeserver.entity.request.UserProfile;
 import iot.polytech.bandukeserver.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,15 +22,16 @@ public class UserController {
         return us.getUserProfile(id);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public UserProfile updateUserProfile(@PathVariable long id,
                                        @RequestBody UserProfile newProfile){
         return us.updateUserProfile(id, newProfile);
     }
 
-    @DeleteMapping("/{id}")
-    public UserProfile deactivateUserProfile(@PathVariable long id){
-        return us.deactivateUserProfile(id);
+    @DeleteMapping
+    public UserProfile deactivateUserProfile(HttpServletRequest req){
+        String token = req.getHeader("Authorization").replace("Bearer ","");
+        return us.deactivateUserProfile(token);
     }
 
 
@@ -36,9 +40,9 @@ public class UserController {
         return us.getUsersProfile(username);
     }
 
-    @GetMapping("/friends/{id}")
-    public List<UserProfile> getUserFriendsList(@PathVariable long id) {
-        return us.getUserFriendsList(id); }
+    @GetMapping("/friends")
+    public List<UserProfile> getUserFriendsList() {
+        return us.getUserFriendsList(); }
 
     @PostMapping("/friend/{id}")
     public UserProfile addFriend(@PathVariable long id) {

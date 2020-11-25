@@ -5,6 +5,7 @@ import iot.polytech.bandukeserver.entity.request.SignUpUser;
 import iot.polytech.bandukeserver.entity.request.UserProfile;
 import iot.polytech.bandukeserver.exception.RessourceException;
 import iot.polytech.bandukeserver.repository.UserRepository;
+import iot.polytech.bandukeserver.config.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,7 @@ public class UserService {
         up.setUsername(u.getUsername());
         up.setFirstname(u.getFirstname());
         up.setLastname(u.getLastname());
+        up.setActivated(u.isActivated());
         return up;
     }
 
@@ -71,12 +73,13 @@ public class UserService {
         return  uToUp(u);
     }
 
-    public UserProfile deactivateUserProfile(long id) {
-        //TODO
-        return null;
+    public UserProfile deactivateUserProfile(String token) {
+        String userString=JwtTokenUtil.;
+        user.setActivated(false);
+        return uToUp(userRepository.save(user));
     }
 
-    public List<UserProfile> getUserFriendsList(long id) {
+    public List<UserProfile> getUserFriendsList() {
         //TODO
         return null;
     }
