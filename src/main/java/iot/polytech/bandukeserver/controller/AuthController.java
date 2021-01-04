@@ -27,8 +27,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LogInUser liu)
-            throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody LogInUser liu){
         try {
             System.out.println("User tries to login : "+liu.getUsername()+" "+liu.getPassword());
             UserDetails userDetails= appelAuthentication(liu.getUsername(), liu.getPassword());
@@ -41,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignUpUser suu){
-            User u=us.signUpUser(suu);
+            us.signUpUser(suu);
             LogInUser liu = new LogInUser(suu);
         try {
             return createAuthenticationToken(liu);

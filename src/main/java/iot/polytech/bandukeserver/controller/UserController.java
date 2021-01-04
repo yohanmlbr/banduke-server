@@ -1,10 +1,8 @@
 package iot.polytech.bandukeserver.controller;
 
-import iot.polytech.bandukeserver.entity.User;
 import iot.polytech.bandukeserver.entity.request.UserProfile;
 import iot.polytech.bandukeserver.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
