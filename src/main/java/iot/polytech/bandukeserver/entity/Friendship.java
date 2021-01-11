@@ -12,18 +12,18 @@ public class Friendship {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT")
     private long id;
 
     @Basic
-    @Column(name = "followerid", nullable = false)
+    @Column(name = "followerid", nullable = false, columnDefinition = "BIGINT")
     private long followerid;
 
     @Basic
-    @Column(name = "followedid", nullable = false)
+    @Column(name = "followedid", nullable = false, columnDefinition = "BIGINT")
     private long followedid;
 
     @Basic
-    @Column(name = "followingdate", nullable = false)
+    @Column(name = "followingdate", nullable = false, columnDefinition = "DATE")
     private Date followingdate;
 }
