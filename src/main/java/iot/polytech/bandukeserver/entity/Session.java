@@ -43,6 +43,5 @@ public class Session {
 
     @Basic
     @Column(name = "content", nullable = false, columnDefinition = "json")
-    @JsonRawValue
     private SessionContent content;
 }

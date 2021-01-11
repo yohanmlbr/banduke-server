@@ -1,8 +1,9 @@
 package iot.polytech.bandukeserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Data
@@ -23,7 +24,8 @@ public class Friendship {
     @Column(name = "followedid", nullable = false, columnDefinition = "BIGINT")
     private long followedid;
 
-    @Basic
-    @Column(name = "followingdate", nullable = false, columnDefinition = "DATE")
+    @Column(name = "followingdate", nullable = false, columnDefinition = "DATETIME")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date followingdate;
 }
