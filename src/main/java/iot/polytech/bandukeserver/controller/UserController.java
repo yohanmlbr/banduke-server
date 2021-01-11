@@ -38,18 +38,6 @@ public class UserController {
         return us.getUsersProfile(username);
     }
 
-    @GetMapping("/friends")
-    public List<UserProfile> getUserFriendsList() {
-        return us.getUserFriendsList(); }
-
-    @PostMapping("/friend/{id}")
-    public UserProfile addFriend(@PathVariable long id) {
-        return us.addFriend(id); }
-
-    @DeleteMapping("/friend/{id}")
-    public UserProfile deleteFriend(@PathVariable long id) {
-        return us.deleteFriend(id); }
-
 
 }
 

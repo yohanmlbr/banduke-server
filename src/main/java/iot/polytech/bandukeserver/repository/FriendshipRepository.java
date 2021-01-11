@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface FriendshipRepository extends JpaRepository<Friendship, Integer> {
 
-    List<Friendship> findByFollowerid(int follower);
+    List<Friendship> findByFollowerid(long follower);
 
-    List<Friendship> findByFollowedid(int followed);
+    List<Friendship> findByFollowedid(long followed);
 
-    List<Friendship> findByFolloweridAndFollowedid(int follower, int followed);
+    Friendship findByFolloweridAndFollowedid(long follower, long followed);
 }
