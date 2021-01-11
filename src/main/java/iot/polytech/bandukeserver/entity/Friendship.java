@@ -1,6 +1,5 @@
 package iot.polytech.bandukeserver.entity;
 
-import iot.polytech.bandukeserver.entity.compositepk.FriendshipPK;
 import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
@@ -8,22 +7,23 @@ import java.sql.Date;
 
 @Data
 @Entity
-@IdClass(FriendshipPK.class)
 @Table(name = "friendship", schema = "banduke")
 public class Friendship {
 
     @Id
-    @ManyToMany
-    @JoinColumn(name = "idfollower", referencedColumnName = "id", nullable = false)
-    private User idfollower;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private long id;
 
-    @Id
-    @ManyToMany
-    @JoinColumn(name = "idfollower", referencedColumnName = "id", nullable = false)
-    private long idfollowed;
+    @Basic
+    @Column(name = "followerid", nullable = false)
+    private long followerid;
+
+    @Basic
+    @Column(name = "followedid", nullable = false)
+    private long followedid;
 
     @Basic
     @Column(name = "followingdate", nullable = false)
     private Date followingdate;
-
 }

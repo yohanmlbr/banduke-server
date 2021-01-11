@@ -81,6 +81,14 @@ public class UserService {
         return uToUp(userRepository.save(u));
     }
 
+    public UserProfile getUserProfileByUsername(String username){
+        User u=userRepository.findByUsername(username);
+        if(u!=null)
+            return uToUp(u);
+        else
+            return null;
+    }
+
     public List<UserProfile> getUserFriendsList() {
         //TODO
         return null;
