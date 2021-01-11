@@ -27,14 +27,14 @@ public class Session {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(50)")
     private String name;
 
-    @Basic
-    @Column(name = "starttime", nullable = false, columnDefinition = "DATE")
+    @Column(name = "starttime", nullable = false, columnDefinition = "DATETIME")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
 
-    @Basic
-    @Column(name = "endtime", nullable = false, columnDefinition = "DATE")
+    @Column(name = "endtime", nullable = false, columnDefinition = "DATETIME")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
     @Basic
