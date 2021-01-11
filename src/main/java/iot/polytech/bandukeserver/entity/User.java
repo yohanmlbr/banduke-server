@@ -1,6 +1,7 @@
 package iot.polytech.bandukeserver.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -32,6 +33,8 @@ public class User {
 
     @Basic
     @Column(name = "activated", nullable = false, columnDefinition = "BOOLEAN")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Convert(disableConversion = true)
     private boolean activated=true;
 
 }
