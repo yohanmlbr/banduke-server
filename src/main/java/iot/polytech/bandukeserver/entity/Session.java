@@ -1,7 +1,7 @@
 package iot.polytech.bandukeserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +11,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "session", schema = "banduke", catalog = "")
+@Table(name = "session", schema = "banduke")
+@JsonPropertyOrder({"id", "userid", "name", "starttime", "endtime", "duration", "content", "gpsData", "accData", "gyrData"})
+
 public class Session {
 
     @Id
@@ -41,7 +43,6 @@ public class Session {
     @Column(name = "duration", nullable = false, columnDefinition = "BIGINT")
     private long duration;
 
-    @Basic
-    @Column(name = "content", nullable = false, columnDefinition = "json")
+    @Embedded
     private SessionContent content;
 }
