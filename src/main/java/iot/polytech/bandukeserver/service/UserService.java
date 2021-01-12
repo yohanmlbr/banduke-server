@@ -2,8 +2,10 @@ package iot.polytech.bandukeserver.service;
 
 import iot.polytech.bandukeserver.entity.User;
 import iot.polytech.bandukeserver.entity.request.SignUpUser;
-import iot.polytech.bandukeserver.entity.request.UserProfile;
+import iot.polytech.bandukeserver.entity.request.UserDetails;
+import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.exception.RessourceException;
+import iot.polytech.bandukeserver.repository.SessionRepository;
 import iot.polytech.bandukeserver.repository.UserRepository;
 import iot.polytech.bandukeserver.config.JwtTokenUtil;
 import lombok.AllArgsConstructor;
@@ -17,27 +19,28 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
+    private UserRepository ur;
+    private SessionService ss;
 
-    public UserProfile getUserProfile(long id){
-        User u = userRepository.findById(id).orElseThrow(
+    public UserIdData getUserIdData(long id){
+        User u = ur.findById(id).orElseThrow(
                 () -> new RessourceException("User", "id", id)
         );
-        return  uToUp(u);
+        return  convertUserToUID(u);
     }
 
-    public List<UserProfile> getUsersProfile(String name){
-        List<UserProfile> upl = new ArrayList<>();
+    public List<UserIdData> getUsersIdData(String name){
+        List<UserIdData> upl = new ArrayList<>();
         if(name.equals("")){
-            List<User> users = userRepository.findAll();
+            List<User> users = ur.findAll();
             for(User u : users) {
-                upl.add(uToUp(u));
+                upl.add(convertUserToUID(u));
             }
         }
         else{
-            List<User> users = userRepository.findByUsernameContains(name);
+            List<User> users = ur.findByUsernameContains(name);
             for(User u : users) {
-                upl.add(uToUp(u));
+                upl.add(convertUserToUID(u));
             }
         }
         return upl;
@@ -50,57 +53,57 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
-        return userRepository.save(user);
+        return ur.save(user);
     }
 
-    private UserProfile uToUp(User u){
-        UserProfile up = new UserProfile();
+    private UserIdData convertUserToUID(User u){
+        UserIdData up = new UserIdData();
         up.setId(u.getId());
         up.setUsername(u.getUsername());
         up.setFirstname(u.getFirstname());
         up.setLastname(u.getLastname());
-        up.setActivated(u.isActivated());
         return up;
     }
 
-    public UserProfile updateUserProfile(long id, UserProfile newProfile) {
-        User u = userRepository.findById(id).orElseThrow(
+    public UserDetails updateUserDetails(long id, UserDetails newProfile) {
+        User u = ur.findById(id).orElseThrow(
                 () -> new RessourceException("User", "id", id)
         );
         u.setFirstname(newProfile.getFirstname());
         u.setLastname(newProfile.getLastname());
-        userRepository.save(u);
-        return  uToUp(u);
+        u.setMotorcycle(newProfile.getMotorcycle());
+        ur.save(u);
+        return  newProfile;
     }
 
-    public UserProfile deactivateUserProfile(String token) {
+    public UserIdData deactivateUserProfile(String token) {
         JwtTokenUtil tu=new JwtTokenUtil();
         String userString=tu.getUsernameFromToken(token);
-        User u=userRepository.findByUsername(userString);
+        User u= ur.findByUsername(userString);
         u.setActivated(false);
-        return uToUp(userRepository.save(u));
+        return convertUserToUID(ur.save(u));
     }
 
-    public UserProfile getUserProfileByUsername(String username){
-        User u=userRepository.findByUsername(username);
+    public UserIdData getUserIdDataByUsername(String username){
+        User u= ur.findByUsername(username);
         if(u!=null)
-            return uToUp(u);
+            return convertUserToUID(u);
         else
             return null;
     }
 
-    public List<UserProfile> getUserFriendsList() {
-        //TODO
-        return null;
-    }
-
-    public UserProfile addFriend(long id) {
-        //TODO
-        return null;
-    }
-
-    public UserProfile deleteFriend(long id) {
-        //TODO
-        return null;
+    public UserDetails getUserDetailsById(long id){
+        UserDetails ud = new UserDetails();
+        User u = ur.findById(id).orElseThrow(
+                () -> new RessourceException("User", "id", id)
+        );
+        ud.setId(u.getId());
+        ud.setUsername(u.getUsername());
+        ud.setLastname((u.getLastname()));
+        ud.setFirstname(u.getFirstname());
+        ud.setMotorcycle(u.getMotorcycle());
+        int nbSessions=ss.getSessionsByUserId(u.getId()).size();
+        ud.setNbsessions(nbSessions);
+        return ud;
     }
 }

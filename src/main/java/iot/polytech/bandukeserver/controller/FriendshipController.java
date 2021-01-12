@@ -1,13 +1,11 @@
 package iot.polytech.bandukeserver.controller;
 
 import iot.polytech.bandukeserver.entity.Friendship;
-import iot.polytech.bandukeserver.entity.request.UserProfile;
+import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.service.FriendshipService;
-import iot.polytech.bandukeserver.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,7 +17,7 @@ public class FriendshipController {
 
 
     @GetMapping("/{id}")
-    public List<UserProfile> getFriendsByUserId(@PathVariable long id) {
+    public List<UserIdData> getFriendsByUserId(@PathVariable long id) {
         return fs.getFriendsByUserId(id); }
 
     @PostMapping("/{id}/add/{friend}")

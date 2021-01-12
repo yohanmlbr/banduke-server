@@ -37,4 +37,7 @@ public class User {
     @Convert(disableConversion = true)
     private boolean activated=true;
 
+    @Basic
+    @Column(name = "motorcycle", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
+    private String motorcycle;
 }

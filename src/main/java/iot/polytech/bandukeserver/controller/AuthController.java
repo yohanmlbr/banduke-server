@@ -1,12 +1,10 @@
 package iot.polytech.bandukeserver.controller;
 
 import iot.polytech.bandukeserver.config.JwtTokenUtil;
-import iot.polytech.bandukeserver.entity.JwtResponse;
 import iot.polytech.bandukeserver.entity.TokenResponse;
-import iot.polytech.bandukeserver.entity.User;
 import iot.polytech.bandukeserver.entity.request.LogInUser;
 import iot.polytech.bandukeserver.entity.request.SignUpUser;
-import iot.polytech.bandukeserver.entity.request.UserProfile;
+import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +32,7 @@ public class AuthController {
             System.out.println("User tries to login : "+liu.getUsername()+" "+liu.getPassword());
             UserDetails userDetails= appelAuthentication(liu.getUsername(), liu.getPassword());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            UserProfile up=us.getUserProfileByUsername(liu.getUsername());
+            UserIdData up=us.getUserIdDataByUsername(liu.getUsername());
             return ResponseEntity.ok(new TokenResponse(token,up));
         } catch (Exception e) {
             return ResponseEntity.ok(new TokenResponse("",null));

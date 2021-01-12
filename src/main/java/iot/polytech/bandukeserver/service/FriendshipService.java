@@ -1,10 +1,8 @@
 package iot.polytech.bandukeserver.service;
 
 import iot.polytech.bandukeserver.entity.Friendship;
-import iot.polytech.bandukeserver.entity.Session;
-import iot.polytech.bandukeserver.entity.request.UserProfile;
+import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.repository.FriendshipRepository;
-import iot.polytech.bandukeserver.repository.SessionRepository;
 import iot.polytech.bandukeserver.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,16 +16,14 @@ import java.util.List;
 public class FriendshipService {
 
     private FriendshipRepository fr;
-    private UserRepository ur;
+    private UserService us;
 
-    public List<UserProfile> getFriendsByUserId(long id){
-        List<UserProfile> friends = new ArrayList<>();
-
-        UserService us=new UserService(ur);
+    public List<UserIdData> getFriendsByUserId(long id){
+        List<UserIdData> friends = new ArrayList<>();
 
         List<Friendship> friendships = fr.findByFollowerid(id);
         for(Friendship f : friendships){
-            friends.add(us.getUserProfile(f.getFollowedid()));
+            friends.add(us.getUserIdData(f.getFollowedid()));
         }
         return friends;
     }
