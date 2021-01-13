@@ -1,6 +1,8 @@
 package iot.polytech.bandukeserver.service;
 
+import iot.polytech.bandukeserver.entity.Friendship;
 import iot.polytech.bandukeserver.entity.User;
+import iot.polytech.bandukeserver.entity.request.EditUser;
 import iot.polytech.bandukeserver.entity.request.SignUpUser;
 import iot.polytech.bandukeserver.entity.request.UserDetails;
 import iot.polytech.bandukeserver.entity.request.UserIdData;
@@ -21,6 +23,7 @@ public class UserService {
 
     private UserRepository ur;
     private SessionService ss;
+    private FriendshipService fs;
 
     public UserIdData getUserIdData(long id){
         User u = ur.findById(id).orElseThrow(
@@ -53,21 +56,21 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
+        user.setMotorcycle(request.getMotorcycle());
         return ur.save(user);
     }
 
     private UserIdData convertUserToUID(User u){
-        UserIdData up = new UserIdData();
-        up.setId(u.getId());
-        up.setUsername(u.getUsername());
-        up.setFirstname(u.getFirstname());
-        up.setLastname(u.getLastname());
-        return up;
+        UserIdData uid = new UserIdData();
+        uid.setId(u.getId());
+        uid.setUsername(u.getUsername());
+        uid.setFirstname(u.getFirstname());
+        return uid;
     }
 
-    public UserDetails updateUserDetails(long id, UserDetails newProfile) {
-        User u = ur.findById(id).orElseThrow(
-                () -> new RessourceException("User", "id", id)
+    public EditUser updateUserDetails(EditUser newProfile) {
+        User u = ur.findById(newProfile.getId()).orElseThrow(
+                () -> new RessourceException("User", "id", newProfile.getId())
         );
         u.setFirstname(newProfile.getFirstname());
         u.setLastname(newProfile.getLastname());
@@ -104,6 +107,19 @@ public class UserService {
         ud.setMotorcycle(u.getMotorcycle());
         int nbSessions=ss.getSessionsByUserId(u.getId()).size();
         ud.setNbsessions(nbSessions);
+        int nbFriends=getFriendsUsersByUserId(u.getId()).size();
+        ud.setNbfriends(nbFriends);
         return ud;
     }
+
+    public List<UserIdData> getFriendsUsersByUserId(long id){
+        List<UserIdData> friends = new ArrayList<>();
+        List<Friendship> friendships = fs.getFriendshipsByUserId(id);
+        for(Friendship f : friendships){
+            friends.add(getUserIdData(f.getFollowedid()));
+        }
+        return friends;
+
+    }
+
 }

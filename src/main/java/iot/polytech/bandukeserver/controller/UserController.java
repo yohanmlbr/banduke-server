@@ -1,5 +1,6 @@
 package iot.polytech.bandukeserver.controller;
 
+import iot.polytech.bandukeserver.entity.request.EditUser;
 import iot.polytech.bandukeserver.entity.request.UserDetails;
 import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.service.UserService;
@@ -21,10 +22,9 @@ public class UserController {
         return us.getUserDetailsById(id);
     }
 
-    @PutMapping("/{id}")
-    public UserDetails updateUserProfile(@PathVariable long id,
-                                        @RequestBody UserDetails newProfile){
-        return us.updateUserDetails(id, newProfile);
+    @PutMapping("/update")
+    public EditUser updateUserProfile(@RequestBody EditUser newProfile){
+        return us.updateUserDetails(newProfile);
     }
 
     @DeleteMapping

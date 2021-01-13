@@ -38,6 +38,6 @@ public class User {
     private boolean activated=true;
 
     @Basic
-    @Column(name = "motorcycle", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
-    private String motorcycle;
+    @Column(name = "motorcycle", nullable = false, length = 50, columnDefinition = "VARCHAR(50) default ''")
+    private String motorcycle="";
 }

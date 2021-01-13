@@ -10,4 +10,5 @@ public class UserDetails {
     private String lastname;
     private String motorcycle;
     private int nbsessions;
+    private int nbfriends;
 }

@@ -16,28 +16,28 @@ import java.util.List;
 public class FriendshipService {
 
     private FriendshipRepository fr;
-    private UserService us;
 
-    public List<UserIdData> getFriendsByUserId(long id){
-        List<UserIdData> friends = new ArrayList<>();
-
-        List<Friendship> friendships = fr.findByFollowerid(id);
-        for(Friendship f : friendships){
-            friends.add(us.getUserIdData(f.getFollowedid()));
-        }
-        return friends;
+    public List<Friendship> getFriendshipsByUserId(long id){
+        return fr.findByFollowerid(id);
     }
 
-    public Friendship addFriend(long followerid, long followedid){
+    public boolean addFriend(long followerid, long followedid){
         Friendship f = new Friendship();
         f.setFollowerid(followerid);
         f.setFollowedid(followedid);
         f.setFollowingdate(new Date(System.currentTimeMillis()));
-        return fr.save(f);
+        fr.save(f);
+        return true;
     }
 
-    public void deleteFriend(long followerid, long followedid){
+    public boolean deleteFriend(long followerid, long followedid){
         Friendship f = fr.findByFolloweridAndFollowedid(followerid, followedid);
         fr.delete(f);
+        return true;
+    }
+
+    public boolean isFriend(long id, long friend){
+        Friendship f = fr.findByFolloweridAndFollowedid(id, friend);
+        return f != null;
     }
 }
