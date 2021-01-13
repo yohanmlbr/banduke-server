@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @Embeddable
-@JsonPropertyOrder({"gpsData", "accData", "gyrData"})
+@JsonPropertyOrder({"gpsData", "accData", "gyrData", "calcData"})
 public class SessionContent {
     @Column(nullable = false, columnDefinition = "json")
     private List<GpsData> gpsData;
@@ -18,10 +18,13 @@ public class SessionContent {
     private List<AccData> accData;
     @Column(nullable = false, columnDefinition = "json")
     private List<GyrData> gyrData;
+    @Column(nullable = false, columnDefinition = "json")
+    private List<CalculatedData> calcData;
 
     public SessionContent() {
         this.gpsData = new LinkedList<>();
         this.accData = new LinkedList<>();
         this.gyrData = new LinkedList<>();
+        this.calcData = new LinkedList<>();
     }
 }

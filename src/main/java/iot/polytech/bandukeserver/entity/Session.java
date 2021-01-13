@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "session", schema = "banduke")
-@JsonPropertyOrder({"id", "userid", "name", "starttime", "endtime", "duration", "content", "gpsData", "accData", "gyrData"})
+@JsonPropertyOrder({"id", "userid", "name", "starttime", "endtime", "duration", "content", "gpsData", "accData", "gyrData", "calcData"})
 
 public class Session {
 
