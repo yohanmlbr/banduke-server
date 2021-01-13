@@ -11,7 +11,7 @@ import java.util.Date;
 @Embeddable
 @JsonPropertyOrder({"gyrTime", "gyrX", "gyrY", "gyrZ"})
 public class GyrData {
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date gyrTime;
     private double gyrX;
     private double gyrY;

@@ -1,6 +1,7 @@
 package iot.polytech.bandukeserver.service;
 
 import iot.polytech.bandukeserver.entity.Friendship;
+import iot.polytech.bandukeserver.entity.request.ApiResponse;
 import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.repository.FriendshipRepository;
 import iot.polytech.bandukeserver.repository.UserRepository;
@@ -8,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,23 +24,29 @@ public class FriendshipService {
         return fr.findByFollowerid(id);
     }
 
-    public boolean addFriend(long followerid, long followedid){
+    public ApiResponse addFriend(long followerid, long followedid){
         Friendship f = new Friendship();
         f.setFollowerid(followerid);
         f.setFollowedid(followedid);
         f.setFollowingdate(new Date(System.currentTimeMillis()));
         fr.save(f);
-        return true;
+        return new ApiResponse(true,"Friend "+followedid+" added succesfully","");
     }
 
-    public boolean deleteFriend(long followerid, long followedid){
+    public ApiResponse deleteFriend(long followerid, long followedid){
         Friendship f = fr.findByFolloweridAndFollowedid(followerid, followedid);
         fr.delete(f);
-        return true;
+        return new ApiResponse(true,"Friend "+followedid+" deleted succesfully","");
     }
 
-    public boolean isFriend(long id, long friend){
+    public ApiResponse isFriend(long id, long friend){
         Friendship f = fr.findByFolloweridAndFollowedid(id, friend);
-        return f != null;
+        if(f!=null){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            return new ApiResponse(true,"User "+friend+" is a friend",df.format(f.getFollowingdate()));
+        }
+        else{
+            return new ApiResponse(false,"User "+friend+" is not a friend","");
+        }
     }
 }

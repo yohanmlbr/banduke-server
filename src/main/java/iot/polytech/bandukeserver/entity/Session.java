@@ -30,12 +30,12 @@ public class Session {
     private String name;
 
     @Column(name = "starttime", nullable = false, columnDefinition = "DATETIME")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
 
     @Column(name = "endtime", nullable = false, columnDefinition = "DATETIME")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 

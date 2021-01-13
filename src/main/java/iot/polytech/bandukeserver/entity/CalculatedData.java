@@ -11,7 +11,7 @@ import java.util.Date;
 @Embeddable
 @JsonPropertyOrder({"calcTime", "distTot", "denivPos", "denivNeg"})
 public class CalculatedData {
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date calcTime;
     private double distTot;
     private double denivPos;

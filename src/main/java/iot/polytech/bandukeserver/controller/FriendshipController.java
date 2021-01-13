@@ -1,6 +1,7 @@
 package iot.polytech.bandukeserver.controller;
 
 import iot.polytech.bandukeserver.entity.Friendship;
+import iot.polytech.bandukeserver.entity.request.ApiResponse;
 import iot.polytech.bandukeserver.entity.request.UserIdData;
 import iot.polytech.bandukeserver.service.FriendshipService;
 import iot.polytech.bandukeserver.service.UserService;
@@ -22,16 +23,16 @@ public class FriendshipController {
         return us.getFriendsUsersByUserId(id); }
 
     @PostMapping("/{id}/add/{friend}")
-    public boolean addFriend(@PathVariable long id, @PathVariable long friend) {
+    public ApiResponse addFriend(@PathVariable long id, @PathVariable long friend) {
         return fs.addFriend(id, friend); }
 
     @DeleteMapping("/{id}/delete/{friend}")
-    public boolean deleteFriend(@PathVariable long id, @PathVariable long friend) {
+    public ApiResponse deleteFriend(@PathVariable long id, @PathVariable long friend) {
         return fs.deleteFriend(id, friend);
     }
 
     @GetMapping("/{id}/isFriend/{friend}")
-    public boolean isFriend(@PathVariable long id, @PathVariable long friend){
+    public ApiResponse isFriend(@PathVariable long id, @PathVariable long friend){
         return fs.isFriend(id,friend);
     }
 }

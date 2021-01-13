@@ -11,7 +11,7 @@ import java.util.Date;
 @Embeddable
 @JsonPropertyOrder({"gpsTime", "gpsLat", "gpsLon"})
 public class GpsData {
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date gpsTime;
     private double gpsLat;
     private double gpsLon;

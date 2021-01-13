@@ -11,7 +11,7 @@ import java.util.Date;
 @Embeddable
 @JsonPropertyOrder({"accTime", "accX", "accY", "accZ"})
 public class AccData {
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date accTime;
     private double accX;
     private double accY;
