@@ -27,4 +27,20 @@ public class SessionContent {
         this.gyrData = new LinkedList<>();
         this.calcData = new LinkedList<>();
     }
+
+    public void addGpsData(GpsData toAdd) {
+        this.gpsData.add(toAdd);
+    }
+
+    public void addAccData(AccData toAdd) {
+        this.accData.add(toAdd);
+    }
+
+    public void addGyrData(GyrData toAdd) {
+        this.gyrData.add(toAdd);
+    }
+
+    public void addCalcData(CalculatedData toAdd) {
+        this.calcData.add(toAdd);
+    }
 }
