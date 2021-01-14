@@ -1,9 +1,9 @@
 package iot.polytech.bandukeserver.service;
 
-import iot.polytech.bandukeserver.entity.Session;
-import iot.polytech.bandukeserver.entity.SessionContent;
+import iot.polytech.bandukeserver.entity.*;
 import iot.polytech.bandukeserver.entity.request.ApiResponse;
 import iot.polytech.bandukeserver.entity.request.SessionIdData;
+import iot.polytech.bandukeserver.entity.request.SessionWoutContent;
 import iot.polytech.bandukeserver.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -39,16 +39,33 @@ public class SessionService {
         return ssid;
     }
 
-    public Session getSessionById(long id){
-        return sr.getById(id);
+    public SessionWoutContent getSessionById(long id){
+        return new SessionWoutContent(sr.getById(id));
     }
 
     public SessionContent getSessionContentById(long id){
         return sr.getById(id).getContent();
     }
 
+    public List<GpsData> getSessionContentGpsDataById(long id){
+        return sr.getById(id).getContent().getGpsData();
+    }
+
+    public List<AccData> getSessionContentAccDataById(long id){
+        return sr.getById(id).getContent().getAccData();
+    }
+
+    public List<GyrData> getSessionContentGyrDataById(long id){
+        return sr.getById(id).getContent().getGyrData();
+    }
+
+    public List<CalculatedData> getSessionContentCalcDataById(long id){
+        return sr.getById(id).getContent().getCalcData();
+    }
+
     public ApiResponse renameSessionById(long id, String newName){
         Session s = sr.getById(id);
+        newName=newName.replaceAll(String.valueOf('"'),"");
         s.setName(newName);
         sr.save(s);
         return new ApiResponse(true,"Session "+id+" renamed succesfully",newName);

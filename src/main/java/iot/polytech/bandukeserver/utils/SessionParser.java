@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class SessionParser {
 
@@ -35,7 +36,8 @@ public class SessionParser {
         String line = "";
         Calendar cal = Calendar.getInstance();
 
-        Scanner input = new Scanner(rawData);
+        String newRawData=rawData.replaceAll("\"", "").replaceAll("\\\\r", "\r").replaceAll("\\\\n", "\n");
+        Scanner input = new Scanner(newRawData);
         if (input.hasNextLine()) {
             String firstLine = input.nextLine();
             String[] firstLineSplitted = firstLine.split("#");
@@ -83,8 +85,9 @@ public class SessionParser {
 
         s.setContent(sc);
         s.setEndTime(cal.getTime());
+        System.out.println(s.getEndTime());
         s.setDuration(ChronoUnit.MINUTES.between(s.getStartTime().toInstant(), s.getEndTime().toInstant()));
-        s.setName(sf.format(cal.getTime()));
+        s.setName("new session");
 
 
         return s;

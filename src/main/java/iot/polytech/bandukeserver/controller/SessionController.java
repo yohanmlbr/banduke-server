@@ -1,9 +1,9 @@
 package iot.polytech.bandukeserver.controller;
 
-import iot.polytech.bandukeserver.entity.Session;
-import iot.polytech.bandukeserver.entity.SessionContent;
+import iot.polytech.bandukeserver.entity.*;
 import iot.polytech.bandukeserver.entity.request.ApiResponse;
 import iot.polytech.bandukeserver.entity.request.SessionIdData;
+import iot.polytech.bandukeserver.entity.request.SessionWoutContent;
 import iot.polytech.bandukeserver.service.SessionService;
 import iot.polytech.bandukeserver.utils.SessionParser;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class SessionController {
         return ss.getSessionsByUserId(id);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Session> addSession(@RequestBody String rawData, @RequestParam(name = "userId") String userIdStr){
+    @PostMapping("{userIdStr}/add")
+    public ResponseEntity<Session> addSession(@RequestBody String rawData, @PathVariable String userIdStr){
         try {
             long userId = Long.valueOf(userIdStr);
             if (userId <= 0) {
@@ -48,13 +48,33 @@ public class SessionController {
     }
 
     @GetMapping("/{id}")
-    public Session getSessionById(@PathVariable long id){
+    public SessionWoutContent getSessionById(@PathVariable long id){
         return ss.getSessionById(id);
     }
 
     @GetMapping("/{id}/content")
     public SessionContent getSessionContentById(@PathVariable long id){
         return ss.getSessionContentById(id);
+    }
+
+    @GetMapping("/{id}/content/gps")
+    public List<GpsData> getSessionContentGpsDataById(@PathVariable long id){
+        return ss.getSessionContentGpsDataById(id);
+    }
+
+    @GetMapping("/{id}/content/acc")
+    public List<AccData> getSessionContentAccDataById(@PathVariable long id){
+        return ss.getSessionContentAccDataById(id);
+    }
+
+    @GetMapping("/{id}/content/gyr")
+    public List<GyrData> getSessionContentGyrDataById(@PathVariable long id){
+        return ss.getSessionContentGyrDataById(id);
+    }
+
+    @GetMapping("/{id}/content/calc")
+    public List<CalculatedData> getSessionContentCalcDataById(@PathVariable long id){
+        return ss.getSessionContentCalcDataById(id);
     }
 
     @PutMapping("/{id}/rename")
