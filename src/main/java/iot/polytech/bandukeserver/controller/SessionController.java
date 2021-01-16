@@ -78,7 +78,7 @@ public class SessionController {
     }
 
     @PutMapping("/{id}/rename")
-    public ApiResponse getSessionById(@PathVariable long id, @RequestBody String newName){
+    public ApiResponse renameSessionById(@PathVariable long id, @RequestBody String newName){
         return ss.renameSessionById(id,newName);
     }
 
